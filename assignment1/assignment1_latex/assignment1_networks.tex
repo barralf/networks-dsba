@@ -1,0 +1,188 @@
+%++++++++++++++++++++++++++++++++++++++++
+% Don't modify this section unless you know what you're doing!
+\documentclass[10pt, a4paper]{article}
+
+
+\usepackage[latin1]{inputenc} %gère les caractères accentués et symboles spécifiques de l?alphabet d?une langue
+\usepackage[T1]{fontenc}%gere les polices de caractères (definition de la position des caractères dans une police)
+\usepackage{lmodern}%police vectorielle
+\usepackage{hyperref}%transforme toutes les références internes du document en hyperliens
+\usepackage{fancyhdr}%pour des entêtes améliorés
+\usepackage{lastpage}%pour pouvoir utiliser 
+\usepackage{xcolor,graphicx}%pour des documents en couleur et insérer des images
+\usepackage{pgf,tikz}%package permettant d?inclure des figures au format PDF en restant dans l?environnement LATEX.
+\usepackage{pgfplots}%pour tracer des courbes/graphiques
+\usepackage{framed}%minipages avec cadre autour
+\bibliographystyle{ieeetr}%style de bibliographie
+\usetikzlibrary{arrows}%dessin de fleches
+\usepackage{caption}%permet de customiser les légendes dans des environnements flottants
+\usepackage{amsmath,amssymb,color,bm}%charge le formulaire mathematique+symb+caracteres gras  avec \boldsymbol en restant un caract mathematique en italique
+\usepackage{ulem}
+\usepackage{layout}%permet de tracer la mise en page avec \layout
+\usepackage{cite} % takes care of citations
+\newcommand*{\Coord}[3]{% 
+  \ensuremath{\overrightarrow{#1}\, 
+    \begin{pmatrix} 
+      #2\\ 
+      #3 
+    \end{pmatrix}}}
+
+%miseenpage
+\setlength{\oddsidemargin}{0cm}
+\setlength{\topmargin}{0cm}
+\setlength{\textheight}{24.7cm}
+\setlength{\marginparwidth}{0cm}
+\setlength{\textwidth}{15.8cm}
+\setlength{\marginparsep}{0pt}
+\setlength{\voffset}{-1cm}
+\setlength{\hoffset}{-0.29cm}
+\setlength{\headheight}{14.5pt} %pas vraiment nécéssaire mais crée des warnings sans...
+
+%\setlength{\parindent}{0pt} %indentation
+
+
+\setlength{\oddsidemargin}{0cm}
+\setlength{\topmargin}{-1cm}
+\setlength{\textheight}{24cm}
+\setlength{\marginparwidth}{0.2cm}
+\setlength{\textwidth}{16cm}
+\setlength{\voffset}{-0.5cm}
+\setlength{\headheight}{14.5pt} %pas vraiment nécéssaire mais crée des warnings sans...
+%++++++++++++++++++++++++++++++++++++++++
+
+
+\begin{document}
+
+\title{Assignment 1 - Network Graph Sciences Analysis}
+\author{Florian \textsc{Barral}}
+
+\date{\today}
+\maketitle
+
+%\begin{abstract}
+%\end{abstract}
+
+
+\section*{Question 1}
+\textbf{(a)} 
+$ \textbf{k}=A . 1$ \\
+\textbf{(b)} 
+$m=|E|= \frac12 k^Tk = \frac12 \sum_{i=0}^n k_i$\\
+\textbf{(c)}
+$N=AA^T$,
+\newpage
+
+\section*{Question 2}
+Let $V$ be partitioned into two disjoint sets $V_1$, $V_2$.
+Because there are no internal edges in each set $V_1$, $V_2$ :
+\begin{align*}
+\{ \# \text{ of out edges of } V_1\} &=\{ \# \text{ of out edges of } V_2\} \\
+\sum_{i\in V_1} k_i & = \sum_{i\in V_2}  k_i \\
+{|V_1| }\frac{\sum_{i\in V_1} k_i}{|V_1|} & = {|V_2| }\frac{\sum_{i\in V_2} k_i}{|V_2|}i \\
+{|V_1|}c_1 & ={|V_2|}c_2 \\
+n_1 c_1 & =n_1 c_1 \\
+\end{align*}
+\newpage
+\section*{Question 3}
+Graph : G=(V,E)\\
+\textbf{(a)} 
+By definition, the element $A_{ij}$ of the square matrix contains the number of paths of length 3 that starts from node $i$ and end at node $j$. A triangle is designed when the node participates simultaneously as the start node and the end node, so we are interested in diagonal elements $A_{ii}$ : nodes involved in triangles.\\ Therefore, the trace of $A^3$ is related to the number of triangles. As :\\
+- 3 nodes are involved in a triangle : we are then triple counting the number of triangles\\
+- the graph is undirected : we are then doubling the number of triangles\\
+So to conclude, the total number of triangles in the graph is 
+$$\Delta(G)=\frac16 tr(A^3)$$
+\\
+\textbf{(b)} 
+As we know the trace of a matrix if the sum of eigen values. We have :
+$$\Delta(G)=\frac16 \sum_{i \in V} \lambda_i^3$$
+
+\textbf{(c)} 
+As we have just shown that the diagonal element $A_{ii}$ is $\Delta_i$ the number of triangles that node $i$ participates in, we just need to find a way to derive $A_{ii}$. The adjacency matrix $A$ being real and symmetric, we have $A=U\Sigma U^T$ with $UU^T=I$. Then $A^3=U\Sigma^3 U^T$. 
+So with the eigenvectors $(\vec{u_{1}},...~,\vec{u_{n}})$ of the eigenvalues $(\lambda_{1},...,\lambda_{n})$, and $u_{ij}$ the $i$th element of $\vec{u_{j}}$, we can derive $\Delta_i$ as follows:
+
+\begin{align*}
+\Delta_i=\frac12 A^3_{ii} &=\frac12 \sum_{k\in V} u_{ik} (\Sigma^3U)_{ki}\\
+& =\frac12 \sum_{k\in V} u_{ik} (\sum_{l\in V} \Sigma^3_{kl}u_{li})\\
+& =\frac12 \sum_{k\in V} u_{ik} (\lambda_k^3 u_{ki})\\
+\Delta_i & =\frac12 \sum_{k\in V} \lambda_k^3 u_{ki}^2 \\
+\end{align*}
+\newpage
+
+\section*{Question 4}
+\textbf{(a)} 
+$G_{n,p}$undirected graph on $n$ nodes and each edge $(u, v)$ appears i.i.d. with probability $p$
+\textbf{(a)} 
+There are $\binom{n}{3}$ triples of vertices . Each triple has statistically a probability of $p$ of being a triangle. Let $\Delta_{ijk}$ be the random variable for the triangle with vertices i, j, and k being present equals to 1 if vertices participate to the same triangle. Then the number of triangles is the expectancy of $\sum_{ijk}\Delta_{ijk}$:
+\begin{align*}
+E[\sum_{ijk}\Delta_{ijk}]=* \sum_{ijk}E[\Delta_{ijk}]=\sum_{ijk}p^3 &= \binom{n}{3}p^3\\
+&=  \frac{n(n-1)(n-2)}{3!}p^3\\
+& \underset{\infty}{\sim} \frac16(np)^3=\frac16 c^3
+\end{align*}
+*the expected value of a sum of random variables is the sum of the expected values, because the events are identically distributed.\\
+\textbf{(b)} 
+Mutatis mutandis :
+\begin{align*}
+E[\sum_{ijk}\Delta'_{ijk}]=* \sum_{ijk}E[\Delta'_{ijk}]=\sum_{ijk}  \binom{3}{2} p^2 &= \binom{n}{3} \binom{3}{2}p^2\\
+&=  \frac{n(n-1)(n-2)}{3!} \frac{3!}{2!}p^2\\
+& \underset{\infty}{\sim} \frac12nc^2
+\end{align*}
+\textbf{(c)} 
+$C=\frac{ \frac16 c^3 3 }{\frac12nc^2}=\frac{c}{n} \sim p$
+\newpage
+
+
+\section*{Question 5}
+\textbf{(a)} 
+$$
+x_i=\sum_{k=1}^{\infty}\sum_{j \in V} \alpha^k A^k_{ij}
+$$
+\textbf{(b)} 
+As we know above : 
+\begin{align*}
+A^k_{ij} = \sum_{l\in V} \lambda_l^k u_{li} u_{lj} \\
+\end{align*}
+\newpage
+
+\section*{Question 6}
+Let's reason by equivalence to prove $ \boxed{\frac{1}{C_A}+\frac{n_A}{n} = \frac{1}{C_B}+\frac{n_B}{n}}$ : 
+\begin{align*}
+\frac{1}{C_A}+\frac{n_A}{n} &= \frac{1}{C_B}+\frac{n_B}{n}\\
+\iff \frac{\sum_{j}d_{Aj}}{n}+\frac{n_A}{n}& =\frac{\sum_{j}d_{Bj}}{n}+\frac{n_B}{n} \\
+\iff {\sum_{j}d_{Aj}}+{n_A}& ={\sum_{j}d_{Bj}}+{n_B} \\
+\iff \sum_{j \in A \cup B}d_{Aj}+n_A & = \sum_{j \in A \cup B}d_{Bj}+n_B \\
+\iff \sum_{j \in A}d_{Aj}+\sum_{j \in B}d_{Aj}+n_A & = \sum_{j \in A}d_{Bj}+ \sum_{j \in B}d_{Bj}+n_B \\
+\iff \sum_{j \in A}d_{Aj}+\sum_{j \in B}(d_{Bj}+1)+n_A & = \sum_{j \in A}(d_{Aj}+1)+ \sum_{j \in B}d_{Bj}+n_B \\
+\iff \sum_{j \in A}d_{Aj}+\sum_{j \in B}d_{Bj}+n_B+n_A & = \sum_{j \in A}d_{Aj}+n_A+ \sum_{j \in B}d_{Bj}+n_B  ~~~ \text{which is true} \\
+\end{align*}
+\newpage
+
+\section*{Question 9}
+\textbf{(a)} 
+The produced Kronecker graph is connected, if: 
+$$ b+c > 1$$
+\\ Here $b+c=0.26+0.53=0.79$ . So the produced Kronecker graph is NOT connected. \\ \\
+The graph has a giant connected component of size $\Theta(n)$ if:
+$$(a+b)(b+c) > 1$$
+Here $(a+b)(b+c)=(0.99+0.26)(0.26+0.53)=0.9875$ . So the produced Kronecker graph is NOT connected. \\
+
+\textbf{(b)} 
+Similar structural properties : 
+\begin{itemize}
+\item Triangle participation distribution
+\item Visualization of nodes and edges of graph.
+\end{itemize}
+
+\end{document}
+
+%\mathbf M=(M_{i,j})_{(i,j) \in{[\![ 1,n]\!]\times[\![ 1,m]\!]}},~~~  \mathbf {MM^T}=((MM^T)_{i,j})_{(i,j) \in{[\![ 1,n]\!]^2}},~~~  \mathbf {M^TM}=((M^TM)_{i,j})_{(i,j) \in{[\![ 1,n]\!]^2}}
+% \begin{align*}
+%\forall (i,j) \in [\![ 1,n]\!]^2, ~~~~~
+%((MM^T)_{i,j} & = \sum_{k=1}^{m} M_{i,k} M^T_{k,j} \\
+%& = \sum_{k=1}^{m} M_{i,k} M_{j,k} 
+%\end{align*}
+
+%\begin{align*}
+%\forall (i,j) \in [\![ 1,n]\!]^2, ~~~~~
+%(M^TM)_{i,j} & = \sum_{k=1}^{m} M^T_{i,k} M_{k,j} \\
+%& = \sum_{k=1}^{m} M_{k,i} M_{k,j} 
+%\end{align*}
